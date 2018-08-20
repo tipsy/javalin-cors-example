@@ -9,7 +9,7 @@ fun main(args: Array<String>) {
     val corsApp = Javalin.create().apply {
         port(80)
         enableCorsForAllOrigins()
-        enableStandardRequestLogging()
+        enableDebugLogging()
         get("/") { ctx ->
             val res = JSONObject()
             res.put("version", "1.0.0")
