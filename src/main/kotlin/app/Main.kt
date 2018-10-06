@@ -6,8 +6,7 @@ import java.util.*
 
 fun main(args: Array<String>) {
 
-    val corsApp = Javalin.create().apply {
-        port(80)
+    Javalin.create().apply {
         enableCorsForAllOrigins()
         enableDebugLogging()
         get("/") { ctx ->
@@ -17,11 +16,10 @@ fun main(args: Array<String>) {
             res.put("contact", "admin@domain.com")
             ctx.result(res.toString()).contentType("application/json")
         }
-    }.start()
+    }.start(80)
 
-    val frontendApp = Javalin.create().apply {
-        port(8081)
+    Javalin.create().apply {
         enableStaticFiles("/public")
-    }.start()
+    }.start(8081)
 
 }
