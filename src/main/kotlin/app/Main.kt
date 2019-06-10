@@ -6,20 +6,20 @@ import java.util.*
 
 fun main(args: Array<String>) {
 
-    Javalin.create().apply {
-        enableCorsForAllOrigins()
-        enableDebugLogging()
-        get("/") { ctx ->
-            val res = JSONObject()
-            res.put("version", "1.0.0")
-            res.put("date", Date().toString())
-            res.put("contact", "admin@domain.com")
-            ctx.result(res.toString()).contentType("application/json")
+    Javalin.create {
+        it.enableCorsForAllOrigins()
+        it.enableDevLogging()
+    }.get("/") { ctx ->
+        val res = JSONObject().apply {
+            put("version", "1.0.0")
+            put("date", Date().toString())
+            put("contact", "admin@domain.com")
         }
+        ctx.result(res.toString()).contentType("application/json")
     }.start(80)
 
-    Javalin.create().apply {
-        enableStaticFiles("/public")
+    Javalin.create {
+        it.addStaticFiles("/public")
     }.start(8081)
 
 }
